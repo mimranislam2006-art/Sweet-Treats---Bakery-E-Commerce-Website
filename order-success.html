@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Confirmed</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Sweet Treats</h1>
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="shop.html">Shop</a>
+    </nav>
+  </header>
+  <main style="padding:28px;max-width:600px;margin:0 auto;text-align:center">
+    <div style="background:var(--card);padding:40px;border-radius:12px;border:1px solid var(--light-brown);box-shadow:0 4px 15px rgba(139,111,71,0.08)">
+      <div style="font-size:3rem;margin-bottom:16px">✓</div>
+      <h2 style="font-size:2rem;margin-bottom:16px;color:var(--accent-dark)">Order Confirmed!</h2>
+      <div id="message" style="font-size:1.1rem;line-height:1.8;color:var(--muted);margin-bottom:24px"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="home.html" style="padding:12px 20px;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Home</a>
+        <a href="shop.html" style="padding:12px 20px;background:var(--accent-dark);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Shop More</a>
+      </div>
+    </div>
+  </main>
+  <script>
+  (function(){
+    var saved = localStorage.getItem('bakery_last_order');
+    var msg = document.getElementById('message');
+    if(saved){
+      try{
+        var order = JSON.parse(saved);
+        msg.textContent = 'Thank you for your order, '+order.name+'! Your total was $'+order.total.toFixed(2)+'. We will prepare your fresh pastries and deliver them shortly.';
+      }catch(e){
+        msg.textContent = 'Thank you for your order!';
+      }
+    } else {
+      msg.textContent = 'Your order has been placed successfully!';
+    }
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Sweet Treats</h1>
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+  <main style="padding:28px;max-width:900px;margin:0 auto">
+    <div id="product-area" style="background:var(--card);padding:32px;border-radius:12px;border:1px solid var(--light-brown);box-shadow:0 4px 15px rgba(139,111,71,0.08)">
+      <h2 id="p-name" style="font-size:2.2rem;margin-top:0">Loading...</h2>
+      <img id="p-image" src="" alt="product image" style="max-width:400px;width:100%;display:block;margin:20px 0;border-radius:10px;box-shadow:0 4px 12px rgba(139,111,71,0.12)">
+      <p id="p-desc" style="font-size:1rem;line-height:1.6;color:var(--muted);margin:16px 0"></p>
+      <div id="p-price" style="font-weight:700;font-size:1.6rem;color:var(--accent);margin:20px 0"></div>
+      <button id="add-btn" style="padding:14px 28px;font-size:1rem">Add to Cart</button>
+    </div>
+  </main>
+  <script src="products.js"></script>
+  <script>
+function loadProduct(){
+  var id = parseInt(new URLSearchParams(window.location.search).get('id'), 10);
+  console.log('Looking for product ID:', id);
+  console.log('Available products:', window.PRODUCTS);
+  
+  if(!window.PRODUCTS || window.PRODUCTS.length === 0){
+    document.getElementById('p-name').textContent = 'Products not loaded';
+    return;
+  }
+  
+  var product = window.PRODUCTS.find(p => p.id === id);
+  if(!product){
+    document.getElementById('p-name').textContent = 'Product not found';
+    return;
+  }
+  
+  document.getElementById('p-name').textContent = product.name;
+  document.getElementById('p-image').src = product.image;
+  document.getElementById('p-desc').textContent = product.description;
+  document.getElementById('p-price').textContent = '$' + product.price.toFixed(2);
+  
+  document.getElementById('add-btn').addEventListener('click', function(e){
+    e.preventDefault();
+    try {
+      var cartData = localStorage.getItem('bakery_cart');
+      var cart = cartData ? JSON.parse(cartData) : [];
+      if(!Array.isArray(cart)) cart = [];
+      var found = cart.find(c => c.id === product.id);
+      if(found) found.qty++; else cart.push({id:product.id, qty:1});
+      localStorage.setItem('bakery_cart', JSON.stringify(cart));
+      console.log('Cart saved:', cart);
+      alert(product.name + ' added to cart!');
+      window.location.href = 'cart.html';
+    } catch(err) {
+      console.error('Error adding to cart:', err);
+      alert('Error adding to cart. Please try again.');
+    }
+  });
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', loadProduct);
+} else {
+  loadProduct();
+}
+  </script>
+</body>
+</html>

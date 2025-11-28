@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Sweet Treats</h1>
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+  <main style="padding:28px;max-width:700px;margin:0 auto">
+    <h2 style="font-size:2rem;margin-bottom:24px">Delivery Details</h2>
+    <form id="checkout-form" style="background:var(--card);padding:28px;border-radius:12px;border:1px solid var(--light-brown);box-shadow:0 4px 15px rgba(139,111,71,0.08)">
+      <div style="margin-bottom:16px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Full Name</label>
+        <input type="text" id="name" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem">
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Street Address</label>
+        <input type="text" id="street" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem">
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">City / Town</label>
+        <input type="text" id="city" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem">
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Postal Code</label>
+        <input type="text" id="postcode" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem">
+      </div>
+      <div style="margin-bottom:20px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Phone Number</label>
+        <input type="tel" id="phone" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem">
+      </div>
+      <div style="border:1px solid var(--light-brown);padding:16px;border-radius:8px;margin-bottom:20px;background:rgba(196,136,106,0.03)">
+        <div style="font-weight:600;color:var(--accent-dark);margin-bottom:12px">Order Summary</div>
+        <div id="order-items" style="margin:8px 0;font-size:0.95rem"></div>
+        <div style="font-weight:700;margin-top:12px;border-top:2px solid var(--light-brown);padding-top:12px;color:var(--accent);font-size:1.1rem">Total: $<span id="order-total">0.00</span></div>
+      </div>
+      <button type="submit" style="width:100%;padding:14px;font-size:1rem">Complete Order</button>
+    </form>
+  </main>
+  <script src="products.js"></script>
+  <script>
+function loadCheckout(){
+  if(!window.PRODUCTS || window.PRODUCTS.length === 0){
+    setTimeout(loadCheckout, 100);
+    return;
+  }
+  try {
+    var cartData = localStorage.getItem('bakery_cart');
+    var cart = cartData ? JSON.parse(cartData) : [];
+    if(!Array.isArray(cart)) cart = [];
+    var html = '';
+    var total = 0;
+    for(var i=0;i<cart.length;i++){
+      var item = cart[i];
+      var product = window.PRODUCTS.find(p => p.id === item.id);
+      if(!product) continue;
+      var price = product.price * item.qty;
+      total += price;
+      html += '<div style="padding:8px 0;border-bottom:1px solid var(--light-brown);display:flex;justify-content:space-between"><span>'+product.name+' x'+item.qty+'</span><span style="font-weight:600">$'+price.toFixed(2)+'</span></div>';
+    }
+    document.getElementById('order-items').innerHTML = html;
+    document.getElementById('order-total').textContent = total.toFixed(2);
+    document.getElementById('checkout-form').onsubmit = function(e){
+      e.preventDefault();
+      localStorage.setItem('bakery_last_order', JSON.stringify({name:document.getElementById('name').value, total:total}));
+      localStorage.removeItem('bakery_cart');
+      location.href = 'order-success.html';
+    }
+  } catch(err) {
+    console.error('Error loading checkout:', err);
+    document.getElementById('order-items').innerHTML = '<p style="color:red">Error loading order</p>';
+  }
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', loadCheckout);
+} else {
+  loadCheckout();
+}
+  </script>
+</body>
+</html>

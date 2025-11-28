@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --bg:#faf8f3;
+  --card:#fff9f5;
+  --accent:#c4886a;
+  --accent-dark:#8b6f47;
+  --text:#2c2c2c;
+  --muted:#6b6b6b;
+  --light-brown:#d4c5b9;
+}
+
+*{box-sizing:border-box}
+body{font-family:'Poppins', sans-serif;margin:0;background:linear-gradient(135deg,#faf8f3 0%,#f3ede5 50%,#f9f5f0 100%);background-attachment:fixed;min-height:100vh;color:var(--text)}
+
+.header{background:linear-gradient(90deg,rgba(196,136,106,0.08),rgba(196,136,106,0.04));padding:16px 24px;border-bottom:2px solid var(--light-brown);display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 2px 8px rgba(139,111,71,0.08)}
+.header h1{margin:0;color:var(--accent-dark);font-weight:700;font-size:1.8rem;font-family:'Playfair Display', serif;letter-spacing:1px}
+.nav{margin:0}
+.nav a{color:var(--accent-dark);text-decoration:none;margin-left:20px;font-weight:500;font-size:0.95rem;transition:color 0.3s ease}
+.nav a:hover{color:var(--accent)}
+
+.hero{background-image:linear-gradient(135deg,rgba(196,136,106,0.15),rgba(139,111,71,0.2)),url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&h=600&fit=crop');background-size:cover;background-position:center;background-attachment:fixed;padding:80px 24px;color:#fff}
+.hero .overlay{background:linear-gradient(180deg,rgba(139,111,71,0.6),rgba(255,255,255,0.02));padding:40px;border-radius:12px;max-width:980px;margin:0 auto}
+.hero h2{font-size:2.8rem;margin:0 0 16px;color:#fff;font-family:'Playfair Display', serif;font-weight:700;letter-spacing:1px}
+.hero p{margin:0 0 20px;color:#f5f0e8;font-size:1.1rem;font-weight:300}
+.cta{display:inline-block;background:var(--accent);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:600;transition:background 0.3s ease,transform 0.2s ease;cursor:pointer}
+.cta:hover{background:var(--accent-dark);transform:translateY(-2px)}
+
+.product-list{display:flex;flex-wrap:wrap;gap:24px;padding:28px;justify-content:flex-start}
+.product{background:var(--card);border:1px solid var(--light-brown);padding:20px;width:calc(33.333% - 16px);border-radius:12px;box-shadow:0 4px 15px rgba(139,111,71,0.08);transition:transform 0.3s ease,box-shadow 0.3s ease,border-color 0.3s ease}
+.product:hover{transform:translateY(-8px);box-shadow:0 12px 30px rgba(139,111,71,0.15);border-color:var(--accent)}
+.product img{display:block;margin:0 auto 16px;border-radius:10px;height:220px;object-fit:cover;width:100%}
+.product .name{font-weight:600;color:var(--accent-dark);margin-bottom:8px;font-size:1.2rem;font-family:'Playfair Display', serif}
+.product .desc{font-size:0.95rem;color:var(--muted);margin-bottom:12px;line-height:1.6}
+.product .price{font-weight:700;color:var(--accent);font-size:1.4rem;margin-bottom:12px}
+.product a{text-decoration:none;color:inherit}
+.product button{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:background 0.3s ease}
+.product button:hover{background:var(--accent-dark)}
+
+.products-area{padding:28px;background:linear-gradient(135deg,rgba(212,197,185,0.05),rgba(196,136,106,0.03))}
+.products-area h3{font-family:'Playfair Display', serif;font-size:2rem;color:var(--accent-dark);margin:0 0 24px;letter-spacing:0.5px}
+
+button, .btn{background:var(--accent);color:#fff;border:none;padding:12px 20px;border-radius:8px;cursor:pointer;font-weight:600;transition:background 0.3s ease,transform 0.2s ease;font-family:'Poppins', sans-serif;font-size:0.95rem}
+button:hover, .btn:hover{background:var(--accent-dark);transform:translateY(-2px)}
+
+input{padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-family:'Poppins', sans-serif;transition:border-color 0.3s ease;font-size:0.95rem}
+input:focus{outline:none;border-color:var(--accent)}
+
+ul{padding-left:20px;line-height:1.8}
+.small-note{font-size:0.9rem;color:var(--muted)}
+.center{text-align:center}
+h2, h3{font-family:'Playfair Display', serif;color:var(--accent-dark)}
+
+.footer{padding:24px;text-align:center;color:var(--muted);font-size:0.9rem;border-top:2px solid var(--light-brown);background:rgba(212,197,185,0.05)}
+
+.hidden{display:none}
+
+@media (max-width:600px){
+  .hero h2{font-size:2rem}
+  .product{width:calc(50% - 12px)}
+  .header h1{font-size:1.4rem}
+  .nav a{margin-left:12px}
+}
+
+@media (max-width:380px){
+  .product{width:100%}
+  .header{flex-direction:column;gap:12px}
+}

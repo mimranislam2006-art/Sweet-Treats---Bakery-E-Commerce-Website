@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Sweet Treats</h1>
+    <nav class="nav">
+      <a href="home.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+  <main style="padding:28px;max-width:500px;margin:0 auto">
+    <h2 style="font-size:2rem;margin-bottom:24px">Sign In</h2>
+    <form id="login-form" style="background:var(--card);padding:28px;border-radius:12px;border:1px solid var(--light-brown);box-shadow:0 4px 15px rgba(139,111,71,0.08)">
+      <div style="margin-bottom:16px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Email</label>
+        <input type="email" id="email" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem" placeholder="name@example.com">
+      </div>
+      <div style="margin-bottom:20px">
+        <label style="display:block;margin-bottom:6px;font-weight:500;color:var(--accent-dark)">Password</label>
+        <input type="password" id="password" required style="width:100%;padding:10px 12px;border:2px solid var(--light-brown);border-radius:8px;font-size:0.95rem" placeholder="••••••••">
+      </div>
+      <button type="submit" style="width:100%;padding:12px;font-size:1rem;margin-bottom:16px">Sign In</button>
+    </form>
+    <div id="message" style="margin-top:16px;padding:12px;border-radius:8px;text-align:center;font-weight:500"></div>
+  </main>
+  <script>
+function handleLogin(e){
+  e.preventDefault();
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  if(email && password){
+    localStorage.setItem('bakery_user', JSON.stringify({email:email}));
+    document.getElementById('message').textContent = 'Login successful!';
+    document.getElementById('message').style.backgroundColor = '#d4edda';
+    document.getElementById('message').style.color = '#155724';
+    setTimeout(() => { location.href = 'shop.html'; }, 1500);
+  }
+}
+document.getElementById('login-form').addEventListener('submit', handleLogin);
+  </script>
+</body>
+</html>
