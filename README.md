@@ -8,7 +8,7 @@ A responsive bakery e-commerce website built with vanilla HTML5, CSS3, and JavaS
 - *User Authentication*: Simple login system for personalized shopping experience
 
 ## Live Demo
-[[GitHub Pages Link - Add after deployment]](https://abdulsubhan1511.github.io/Sweet-Treats---Bakery-E-Commerce-Website/)
+[Bakery Website](https://abdulsubhan1511.github.io/Sweet-Treats---Bakery-E-Commerce-Website/)
 
 ## Technologies
 - HTML5
